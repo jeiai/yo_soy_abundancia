@@ -22,7 +22,7 @@ export function Hero() {
             Yo Soy Abundancia
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-9 text-plum/78">
-            Bienvenida a una comunidad espiritual y práctica para sanar
+            Bienvenido(a) a una comunidad espiritual y práctica para sanar
             bloqueos, fortalecer tu fe y abrir caminos de abundancia desde el
             amor, la gratitud y acciones concretas.
           </p>
