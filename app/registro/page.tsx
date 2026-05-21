@@ -1,13 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { UserPlus } from "lucide-react";
+import { AlreadyLoggedIn } from "@/components/auth/AlreadyLoggedIn";
 import { AuthForm } from "@/components/auth/AuthForm";
+import { getCurrentUser } from "@/lib/session";
 
 export const metadata: Metadata = {
   title: "Crear Cuenta"
 };
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const user = await getCurrentUser();
+
+  if (user) {
+    return (
+      <AlreadyLoggedIn
+        name={user.name ?? user.email}
+        role={user.role}
+      />
+    );
+  }
+
   return (
     <div className="soft-band px-5 py-20 lg:px-8">
       <section className="mx-auto max-w-md rounded-3xl border border-gold/20 bg-white p-8 shadow-soft">

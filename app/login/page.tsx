@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { LockKeyhole } from "lucide-react";
+import { AlreadyLoggedIn } from "@/components/auth/AlreadyLoggedIn";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { getCurrentUser } from "@/lib/session";
 
 export const metadata: Metadata = {
   title: "Login"
@@ -13,8 +15,18 @@ type LoginPageProps = {
   };
 };
 
-export default function LoginPage({ searchParams }: LoginPageProps) {
+export default async function LoginPage({ searchParams }: LoginPageProps) {
   const nextPath = searchParams?.next ?? "/miembros";
+  const user = await getCurrentUser();
+
+  if (user) {
+    return (
+      <AlreadyLoggedIn
+        name={user.name ?? user.email}
+        role={user.role}
+      />
+    );
+  }
 
   return (
     <div className="soft-band px-5 py-20 lg:px-8">
