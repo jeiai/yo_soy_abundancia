@@ -9,7 +9,8 @@ const navItems = [
   { href: "/miembros", label: "Miembros" },
   { href: "/agenda", label: "Agenda" },
   { href: "/comunidad", label: "Comunidad" },
-  { href: "/login", label: "Login" }
+  { href: "/login", label: "Login" },
+  { href: "/registro", label: "Registro" }
 ];
 
 export function Navbar() {

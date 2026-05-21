@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import { LockKeyhole } from "lucide-react";
+import { AuthForm } from "@/components/auth/AuthForm";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 
 export const metadata: Metadata = {
   title: "Login"
 };
 
-export default function LoginPage() {
+type LoginPageProps = {
+  searchParams?: {
+    next?: string;
+  };
+};
+
+export default function LoginPage({ searchParams }: LoginPageProps) {
+  const nextPath = searchParams?.next ?? "/miembros";
+
   return (
     <div className="soft-band px-5 py-20 lg:px-8">
       <section className="mx-auto max-w-md rounded-3xl border border-gold/20 bg-white p-8 shadow-soft">
@@ -15,30 +24,16 @@ export default function LoginPage() {
           Acceso a miembros
         </h1>
         <p className="mt-3 leading-7 text-plum/72">
-          Formulario visual listo para conectarse con NextAuth, Clerk, Supabase
-          Auth o el proveedor que prefieras.
+          Entra con tu correo y contrasena para acceder al journal, agenda y
+          acompanamiento.
         </p>
-        <form className="mt-8 grid gap-4">
-          <label className="grid gap-2">
-            <span className="font-semibold text-plum">Correo electrónico</span>
-            <input
-              type="email"
-              className="min-h-12 rounded-full border border-blush/70 bg-ivory px-5 outline-none focus:border-gold"
-              placeholder="tu@email.com"
-            />
-          </label>
-          <label className="grid gap-2">
-            <span className="font-semibold text-plum">Contraseña</span>
-            <input
-              type="password"
-              className="min-h-12 rounded-full border border-blush/70 bg-ivory px-5 outline-none focus:border-gold"
-              placeholder="••••••••"
-            />
-          </label>
-          <ButtonLink href="/miembros" className="mt-2">
-            Entrar en modo demo
+        <AuthForm mode="login" nextPath={nextPath} />
+        <div className="mt-5 text-center text-sm text-plum/70">
+          <span>No tienes cuenta? </span>
+          <ButtonLink href="/registro" variant="ghost" className="min-h-10 px-4 py-2">
+            Crear cuenta
           </ButtonLink>
-        </form>
+        </div>
       </section>
     </div>
   );

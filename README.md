@@ -71,6 +71,7 @@ Variables de entorno en Render:
 ```txt
 NEXT_PUBLIC_APP_URL=https://yo-soy-abundancia.onrender.com
 DATABASE_URL=pegar-la-internal-database-url-de-render
+ADMIN_INVITE_CODE=opcional-para-crear-admins
 STRIPE_SECRET_KEY=
 NEXT_PUBLIC_STRIPE_PRICE_JOURNAL=
 MERCADO_PAGO_ACCESS_TOKEN=
@@ -113,3 +114,17 @@ npm run db:studio
 /admin
 /api/db/health
 ```
+
+## Login real
+
+El proyecto incluye autenticacion propia con PostgreSQL:
+
+- `/registro` crea usuarios.
+- `/login` inicia sesion.
+- `/api/auth/logout` cierra sesion.
+- `/miembros` requiere usuario autenticado.
+- `/admin` requiere rol `admin`.
+
+La primera cuenta registrada queda como `admin`. Para permitir que otra cuenta
+se registre como administradora, configura `ADMIN_INVITE_CODE` en Render y usa
+ese codigo en el formulario de registro.

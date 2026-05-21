@@ -11,12 +11,23 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  passwordHash String?
   role      String   @default("member")
   createdAt DateTime @default(now())
   purchases Purchase[]
   journalEntries JournalEntry[]
   agendaEntries AgendaEntry[]
   chatMessages ChatMessage[]
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Product {
