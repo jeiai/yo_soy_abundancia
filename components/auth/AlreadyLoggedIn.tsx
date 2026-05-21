@@ -13,15 +13,15 @@ export function AlreadyLoggedIn({ name, role }: AlreadyLoggedInProps) {
       <section className="mx-auto max-w-md rounded-3xl border border-gold/20 bg-white p-8 text-center shadow-soft">
         <CheckCircle2 className="mx-auto mb-5 h-12 w-12 text-gold" />
         <h1 className="font-display text-4xl font-semibold text-plum">
-          Ya estas logeado
+          Ya estás logeado
         </h1>
         <p className="mt-3 leading-7 text-plum/72">
-          Tu sesion esta activa como <span className="font-semibold">{name}</span>.
+          Tu sesión está activa como <span className="font-semibold">{name}</span>.
           Puedes continuar tu camino de abundancia sin volver a escribir usuario
-          y contrasena.
+          y contraseña.
         </p>
         <div className="mt-8 grid gap-3">
-          <ButtonLink href="/miembros">Ir al area de miembros</ButtonLink>
+          <ButtonLink href="/miembros">Ir al área de miembros</ButtonLink>
           {role === "admin" ? (
             <ButtonLink href="/admin" variant="secondary">
               Ir al panel admin

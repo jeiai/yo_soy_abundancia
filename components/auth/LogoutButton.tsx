@@ -15,7 +15,7 @@ export function LogoutButton() {
       className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-plum ring-1 ring-gold/30 transition hover:bg-linen"
     >
       <LogOut className="h-4 w-4" />
-      Cerrar sesion
+      Cerrar sesión
     </button>
   );
 }

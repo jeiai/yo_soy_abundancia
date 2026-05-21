@@ -36,7 +36,7 @@ export default async function RegisterPage() {
         <p className="mt-5 text-center text-sm text-plum/70">
           Ya tienes cuenta?{" "}
           <Link href="/login" className="font-semibold text-rosewood hover:text-plum">
-            Inicia sesion
+            Inicia sesión
           </Link>
         </p>
       </section>

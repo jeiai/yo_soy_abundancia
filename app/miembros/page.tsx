@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 
 export const metadata: Metadata = {
-  title: "Area de Miembros"
+  title: "Área de Miembros"
 };
 
 export default async function MembersPage() {
@@ -41,9 +41,9 @@ export default async function MembersPage() {
             <LogoutButton />
           </div>
           <SectionHeader
-            eyebrow="Area de miembros"
-            title="Tu recorrido de 21 dias"
-            description={`Acceso privado al journal, chat de acompanamiento y herramientas para sostener tu camino de abundancia. Llevas ${completedDays} de 21 dias completados.`}
+            eyebrow="Área de miembros"
+            title="Tu recorrido de 21 días"
+            description={`Acceso privado al journal, chat de acompañamiento y herramientas para sostener tu camino de abundancia. Llevas ${completedDays} de 21 días completados.`}
           />
         </div>
       </section>

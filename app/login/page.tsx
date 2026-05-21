@@ -36,8 +36,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           Acceso a miembros
         </h1>
         <p className="mt-3 leading-7 text-plum/72">
-          Entra con tu correo y contrasena para acceder al journal, agenda y
-          acompanamiento.
+          Entra con tu correo y contraseña para acceder al journal, agenda y
+          acompañamiento.
         </p>
         <AuthForm mode="login" nextPath={nextPath} />
         <div className="mt-5 text-center text-sm text-plum/70">

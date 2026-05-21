@@ -56,7 +56,7 @@ export function AuthForm({ mode, nextPath = "/miembros" }: AuthFormProps) {
         </label>
       ) : null}
       <label className="grid gap-2">
-        <span className="font-semibold text-plum">Correo electronico</span>
+        <span className="font-semibold text-plum">Correo electrónico</span>
         <input
           name="email"
           type="email"
@@ -66,19 +66,19 @@ export function AuthForm({ mode, nextPath = "/miembros" }: AuthFormProps) {
         />
       </label>
       <label className="grid gap-2">
-        <span className="font-semibold text-plum">Contrasena</span>
+        <span className="font-semibold text-plum">Contraseña</span>
         <input
           name="password"
           type="password"
           required
           minLength={8}
           className="min-h-12 rounded-full border border-blush/70 bg-ivory px-5 outline-none focus:border-gold"
-          placeholder="Minimo 8 caracteres"
+          placeholder="Mínimo 8 caracteres"
         />
       </label>
       {mode === "register" ? (
         <label className="grid gap-2">
-          <span className="font-semibold text-plum">Codigo admin opcional</span>
+          <span className="font-semibold text-plum">Código admin opcional</span>
           <input
             name="adminCode"
             className="min-h-12 rounded-full border border-blush/70 bg-ivory px-5 outline-none focus:border-gold"

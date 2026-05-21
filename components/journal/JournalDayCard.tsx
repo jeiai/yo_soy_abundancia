@@ -56,7 +56,7 @@ export function JournalDayCard({ day, initialProgress }: JournalDayCardProps) {
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-gold">
-            Dia {day.day}
+            Día {day.day}
           </p>
           <h2 className="mt-1 font-display text-3xl font-semibold text-plum">
             {day.title}
@@ -75,7 +75,7 @@ export function JournalDayCard({ day, initialProgress }: JournalDayCardProps) {
         <section>
           <div className="mb-2 flex items-center gap-2 font-bold text-plum">
             <HeartHandshake className="h-5 w-5 text-gold" />
-            Oracion
+            Oración
           </div>
           <p className="leading-7 text-plum/75">{day.prayer}</p>
         </section>
@@ -89,13 +89,13 @@ export function JournalDayCard({ day, initialProgress }: JournalDayCardProps) {
             value={gratitude}
             onChange={(event) => setGratitude(event.target.value)}
             className="min-h-24 w-full resize-y rounded-2xl border border-blush/60 bg-ivory p-4 text-plum outline-none transition placeholder:text-plum/40 focus:border-gold"
-            placeholder="Escribe aqui tus gratitudes de hoy."
+            placeholder="Escribe aquí tus gratitudes de hoy."
           />
         </section>
         <section>
           <div className="mb-2 flex items-center gap-2 font-bold text-plum">
             <PenLine className="h-5 w-5 text-gold" />
-            Reflexion escrita
+            Reflexión escrita
           </div>
           <textarea
             value={reflection}
@@ -107,7 +107,7 @@ export function JournalDayCard({ day, initialProgress }: JournalDayCardProps) {
         <section>
           <div className="mb-2 flex items-center gap-2 font-bold text-plum">
             <ListChecks className="h-5 w-5 text-gold" />
-            Acciones practicas
+            Acciones prácticas
           </div>
           <div className="grid gap-2">
             {day.actions.map((action) => (
@@ -137,7 +137,7 @@ export function JournalDayCard({ day, initialProgress }: JournalDayCardProps) {
             onChange={(event) => setCompleted(event.target.checked)}
             className="h-4 w-4 accent-rosewood"
           />
-          Marcar dia como completado
+          Marcar día como completado
         </label>
         <div className="flex flex-col gap-2 sm:items-end">
           <button
@@ -154,7 +154,7 @@ export function JournalDayCard({ day, initialProgress }: JournalDayCardProps) {
           ) : null}
           {status === "error" ? (
             <p className="text-sm font-semibold text-rosewood">
-              No se pudo guardar. Inicia sesion de nuevo.
+              No se pudo guardar. Inicia sesión de nuevo.
             </p>
           ) : null}
         </div>
