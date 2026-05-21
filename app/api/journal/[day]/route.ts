@@ -34,28 +34,30 @@ export async function PUT(request: NextRequest, context: RouteContext) {
     completed?: boolean;
   };
 
-  const entry = await prisma.journalEntry.upsert({
+  const existingEntry = await prisma.journalEntry.findFirst({
     where: {
-      userId_day: {
-        userId: user.id,
-        day
-      }
-    },
-    create: {
       userId: user.id,
-      day,
-      gratitude: body.gratitude?.trim() || null,
-      reflection: body.reflection?.trim() || null,
-      actions: JSON.stringify(body.actions ?? []),
-      completed: Boolean(body.completed)
-    },
-    update: {
-      gratitude: body.gratitude?.trim() || null,
-      reflection: body.reflection?.trim() || null,
-      actions: JSON.stringify(body.actions ?? []),
-      completed: Boolean(body.completed)
+      day
     }
   });
+  const data = {
+    gratitude: body.gratitude?.trim() || null,
+    reflection: body.reflection?.trim() || null,
+    actions: JSON.stringify(body.actions ?? []),
+    completed: Boolean(body.completed)
+  };
+  const entry = existingEntry
+    ? await prisma.journalEntry.update({
+        where: { id: existingEntry.id },
+        data
+      })
+    : await prisma.journalEntry.create({
+        data: {
+          userId: user.id,
+          day,
+          ...data
+        }
+      });
 
   return NextResponse.json({
     entry: {
