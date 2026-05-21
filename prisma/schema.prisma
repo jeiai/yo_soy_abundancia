@@ -17,6 +17,7 @@ model User {
   purchases Purchase[]
   journalEntries JournalEntry[]
   agendaEntries AgendaEntry[]
+  monthlyGoals MonthlyGoal[]
   chatMessages ChatMessage[]
   sessions Session[]
 }
@@ -72,6 +73,16 @@ model AgendaEntry {
   intention String?
   action    String?
   habits    String?
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model MonthlyGoal {
+  id        String   @id @default(cuid())
+  userId    String
+  year      Int
+  month     Int
+  goal      String?
+  updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
 }
 
