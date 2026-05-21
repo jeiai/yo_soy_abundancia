@@ -18,7 +18,7 @@ export const journalDays: JournalDay[] = [
     gratitude: "Escribe tres bendiciones presentes en tu vida, aunque parezcan pequeñas.",
     reflection: "¿Qué significa abundancia para mí más allá del dinero?",
     actions: ["Ordena un espacio pequeño", "Bebe agua con intención", "Agradece en voz alta una oportunidad"],
-    affirmation: "Estoy lista para recibir lo bueno con paz y merecimiento."
+    affirmation: "Estoy listo(a) para recibir lo bueno con paz y merecimiento."
   },
   {
     day: 2,

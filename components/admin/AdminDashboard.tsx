@@ -6,7 +6,7 @@ const stats = [
   { label: "Productos configurados", value: products.length, Icon: CreditCard },
   { label: "Días del journal", value: journalDays.length, Icon: BookOpen },
   { label: "Usuarios demo", value: 1, Icon: Users },
-  { label: "Base de datos", value: "Lista", Icon: Database }
+  { label: "Base de datos", value: "List(a)", Icon: Database }
 ];
 
 export function AdminDashboard() {
