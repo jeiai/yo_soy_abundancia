@@ -5,6 +5,23 @@ export const metadata: Metadata = {
   title: "Cuaderno Digital"
 };
 
-export default function ProductPage() {
-  return <ProductSales />;
+type ProductPageProps = {
+  searchParams?: {
+    checkout?: string;
+    provider?: string;
+    message?: string;
+  };
+};
+
+export default function ProductPage({ searchParams }: ProductPageProps) {
+  const checkoutMessage =
+    searchParams?.checkout === "error"
+      ? searchParams.message ?? "No pudimos iniciar el pago. Revisa la configuración del proveedor."
+      : searchParams?.checkout === "cancelled"
+        ? "El pago fue cancelado. Puedes intentarlo de nuevo cuando estés listo(a)."
+        : searchParams?.checkout === "failure"
+          ? "El pago no pudo completarse. Puedes intentar con otro método."
+          : undefined;
+
+  return <ProductSales checkoutMessage={checkoutMessage} />;
 }

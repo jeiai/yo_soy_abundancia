@@ -1,5 +1,5 @@
 import { CheckCircle2, Heart, Sparkles, Users } from "lucide-react";
-import { CheckoutButton } from "@/components/ui/CheckoutButton";
+import { PaymentButtons } from "@/components/product/PaymentButtons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { products } from "@/config/products";
 
@@ -42,7 +42,11 @@ const outcomes = [
   }
 ];
 
-export function ProductSales() {
+type ProductSalesProps = {
+  checkoutMessage?: string;
+};
+
+export function ProductSales({ checkoutMessage }: ProductSalesProps) {
   const journal = products[0];
 
   return (
@@ -61,11 +65,16 @@ export function ProductSales() {
               abundancia con gratitud, oración, reflexión y acciones sencillas.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <CheckoutButton checkoutPath={journal.checkoutPath} label="Comprar cuaderno digital" />
+              <PaymentButtons productId={journal.id} />
               <p className="text-2xl font-bold text-plum">
                 ${journal.price} <span className="text-base">{journal.currency}</span>
               </p>
             </div>
+            {checkoutMessage ? (
+              <p className="mt-4 rounded-2xl bg-blush/35 p-4 text-sm font-semibold leading-6 text-rosewood">
+                {checkoutMessage}
+              </p>
+            ) : null}
           </div>
           <div className="rounded-[2rem] border border-gold/25 bg-white p-7 shadow-soft">
             <p className="font-display text-3xl font-semibold text-plum">

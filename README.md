@@ -75,6 +75,7 @@ ADMIN_INVITE_CODE=opcional-para-crear-admins
 STRIPE_SECRET_KEY=
 NEXT_PUBLIC_STRIPE_PRICE_JOURNAL=
 MERCADO_PAGO_ACCESS_TOKEN=
+MERCADO_PAGO_USE_SANDBOX=false
 OPENAI_API_KEY=
 ```
 
@@ -113,6 +114,38 @@ npm run db:studio
 /login
 /admin
 /api/db/health
+```
+
+## Pagos reales
+
+La ruta principal de checkout es:
+
+```txt
+/api/checkout?product=journal-21-dias&provider=stripe
+/api/checkout?product=journal-21-dias&provider=mercado-pago
+```
+
+Variables necesarias en Render:
+
+```txt
+STRIPE_SECRET_KEY=sk_live_o_sk_test...
+MERCADO_PAGO_ACCESS_TOKEN=APP_USR_o_TEST...
+MERCADO_PAGO_USE_SANDBOX=false
+```
+
+Para pruebas de Mercado Pago puedes usar:
+
+```txt
+MERCADO_PAGO_USE_SANDBOX=true
+```
+
+Stripe usa Checkout Sessions con precio dinámico desde `config/products.ts`.
+Mercado Pago usa Checkout Pro Preferences con el precio del producto.
+
+Después de cambiar credenciales en Render:
+
+```txt
+Manual Deploy > Deploy latest commit
 ```
 
 ## Login real
