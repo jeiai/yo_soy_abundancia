@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, CheckCircle2, Save, Target } from "lucide-react";
+import { CalendarDays, CheckCircle2, History, Save, Target } from "lucide-react";
 import { useMemo, useState } from "react";
 import { dailyPhrases, habitSuggestions } from "@/data/agenda-prompts";
 
@@ -18,6 +18,13 @@ const months = [
   "Noviembre",
   "Diciembre"
 ];
+
+const emptyDailyEntry = {
+  gratitude: "",
+  intention: "",
+  action: "",
+  habits: []
+};
 
 const gratitudeExamples = [
   "Agradezco tener un hogar donde puedo respirar y volver a empezar.",
@@ -66,36 +73,41 @@ type DailyEntry = {
 };
 
 type AnnualAgendaProps = {
-  dateKey: string;
+  todayKey: string;
   year: number;
-  initialDailyEntry: DailyEntry;
+  dailyEntriesByDate: Record<string, DailyEntry>;
   initialMonthlyGoals: Record<number, string>;
 };
 
 export function AnnualAgenda({
-  dateKey,
+  todayKey,
   year,
-  initialDailyEntry,
+  dailyEntriesByDate,
   initialMonthlyGoals
 }: AnnualAgendaProps) {
-  const todayPhrase = dailyPhrases[new Date().getDay() % dailyPhrases.length];
-  const [gratitude, setGratitude] = useState(initialDailyEntry.gratitude);
-  const [intention, setIntention] = useState(initialDailyEntry.intention);
-  const [action, setAction] = useState(initialDailyEntry.action);
-  const [habits, setHabits] = useState<string[]>(initialDailyEntry.habits);
+  const [entriesByDate, setEntriesByDate] = useState(dailyEntriesByDate);
+  const [selectedDate, setSelectedDate] = useState(todayKey);
+  const selectedEntry = entriesByDate[selectedDate] ?? emptyDailyEntry;
+  const [gratitude, setGratitude] = useState(selectedEntry.gratitude);
+  const [intention, setIntention] = useState(selectedEntry.intention);
+  const [action, setAction] = useState(selectedEntry.action);
+  const [habits, setHabits] = useState<string[]>(selectedEntry.habits);
   const [goals, setGoals] = useState<Record<number, string>>(initialMonthlyGoals);
   const [dailyStatus, setDailyStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [goalsStatus, setGoalsStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const savedDates = Object.keys(entriesByDate).sort().reverse();
+  const firstSavedDate = savedDates.length > 0 ? savedDates[savedDates.length - 1] : todayKey;
+  const todayPhrase = dailyPhrases[getDayOfYear(selectedDate) % dailyPhrases.length];
   const currentDateLabel = useMemo(
     () =>
       new Intl.DateTimeFormat("es-MX", {
         day: "numeric",
         month: "long",
         year: "numeric"
-      }).format(new Date(`${dateKey}T12:00:00`)),
-    [dateKey]
+      }).format(new Date(`${selectedDate}T12:00:00`)),
+    [selectedDate]
   );
-  const exampleIndex = getDayOfYear(dateKey);
+  const exampleIndex = getDayOfYear(selectedDate);
   const userContext = `${gratitude} ${intention} ${action}`;
   const examples = {
     gratitude: contextualizeExample(
@@ -115,6 +127,16 @@ export function AnnualAgenda({
     )
   };
 
+  function loadDate(date: string) {
+    const entry = entriesByDate[date] ?? emptyDailyEntry;
+    setSelectedDate(date);
+    setGratitude(entry.gratitude);
+    setIntention(entry.intention);
+    setAction(entry.action);
+    setHabits(entry.habits);
+    setDailyStatus("idle");
+  }
+
   function toggleHabit(habit: string) {
     setHabits((current) =>
       current.includes(habit)
@@ -126,19 +148,29 @@ export function AnnualAgenda({
   async function saveDailyEntry() {
     setDailyStatus("saving");
 
+    const payload = {
+      date: selectedDate,
+      gratitude,
+      intention,
+      action,
+      habits
+    };
     const response = await fetch("/api/agenda", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        date: dateKey,
-        gratitude,
-        intention,
-        action,
-        habits
-      })
+      body: JSON.stringify(payload)
     });
 
-    setDailyStatus(response.ok ? "saved" : "error");
+    if (response.ok) {
+      setEntriesByDate((current) => ({
+        ...current,
+        [selectedDate]: payload
+      }));
+      setDailyStatus("saved");
+      return;
+    }
+
+    setDailyStatus("error");
   }
 
   async function saveMonthlyGoals() {
@@ -171,6 +203,24 @@ export function AnnualAgenda({
             <p className="text-sm font-semibold text-plum/60">{currentDateLabel}</p>
           </div>
         </div>
+
+        <div className="mb-5 grid gap-3 rounded-2xl bg-ivory p-4">
+          <label className="grid gap-2">
+            <span className="text-sm font-semibold text-plum">Consultar fecha</span>
+            <input
+              type="date"
+              value={selectedDate}
+              min={firstSavedDate}
+              max={todayKey}
+              onChange={(event) => loadDate(event.target.value)}
+              className="min-h-12 rounded-full border border-blush/70 bg-white px-5 outline-none focus:border-gold"
+            />
+          </label>
+          <p className="text-sm leading-6 text-plum/65">
+            Puedes consultar cualquier día guardado desde que empezaste tu agenda.
+          </p>
+        </div>
+
         <p className="rounded-2xl bg-linen p-4 font-semibold leading-7 text-plum">
           {todayPhrase}
         </p>
@@ -229,6 +279,36 @@ export function AnnualAgenda({
 
       <section className="rounded-3xl border border-gold/20 bg-white p-6 shadow-sm">
         <div className="mb-5 flex items-center gap-3">
+          <History className="h-6 w-6 text-gold" />
+          <h2 className="font-display text-3xl font-semibold text-plum">
+            Días guardados
+          </h2>
+        </div>
+        <div className="mb-6 grid max-h-72 gap-2 overflow-y-auto pr-1">
+          {savedDates.length > 0 ? (
+            savedDates.map((date) => (
+              <button
+                key={date}
+                type="button"
+                onClick={() => loadDate(date)}
+                className={`rounded-2xl px-4 py-3 text-left text-sm font-semibold transition ${
+                  selectedDate === date
+                    ? "bg-plum text-white"
+                    : "bg-ivory text-plum hover:bg-linen"
+                }`}
+              >
+                {formatDate(date)}
+              </button>
+            ))
+          ) : (
+            <p className="rounded-2xl bg-ivory p-4 text-sm leading-6 text-plum/70">
+              Aún no hay días guardados. Guarda tu primera agenda diaria para
+              iniciar tu historial.
+            </p>
+          )}
+        </div>
+
+        <div className="mb-5 flex items-center gap-3 border-t border-gold/15 pt-5">
           <CheckCircle2 className="h-6 w-6 text-gold" />
           <h2 className="font-display text-3xl font-semibold text-plum">
             Seguimiento de hábitos
@@ -320,6 +400,14 @@ function getDayOfYear(dateKey: string) {
   const diff = date.getTime() - start.getTime();
 
   return Math.floor(diff / 86400000);
+}
+
+function formatDate(dateKey: string) {
+  return new Intl.DateTimeFormat("es-MX", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(new Date(`${dateKey}T12:00:00`));
 }
 
 function contextualizeExample(

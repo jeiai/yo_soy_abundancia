@@ -10,19 +10,12 @@ export const metadata: Metadata = {
 
 export default async function AgendaPage() {
   const user = await requireUser("/agenda");
-  const dateKey = new Date().toISOString().slice(0, 10);
-  const start = new Date(`${dateKey}T00:00:00.000Z`);
-  const end = new Date(`${dateKey}T23:59:59.999Z`);
+  const todayKey = new Date().toISOString().slice(0, 10);
   const year = new Date().getFullYear();
-  const [dailyEntry, monthlyGoals] = await Promise.all([
-    prisma.agendaEntry.findFirst({
-      where: {
-        userId: user.id,
-        date: {
-          gte: start,
-          lte: end
-        }
-      }
+  const [dailyEntries, monthlyGoals] = await Promise.all([
+    prisma.agendaEntry.findMany({
+      where: { userId: user.id },
+      orderBy: { date: "desc" }
     }),
     prisma.monthlyGoal.findMany({
       where: {
@@ -31,6 +24,17 @@ export default async function AgendaPage() {
       }
     })
   ]);
+  const entriesByDate = Object.fromEntries(
+    dailyEntries.map((entry) => [
+      entry.date.toISOString().slice(0, 10),
+      {
+        gratitude: entry.gratitude ?? "",
+        intention: entry.intention ?? "",
+        action: entry.action ?? "",
+        habits: parseList(entry.habits)
+      }
+    ])
+  );
 
   return (
     <div className="bg-ivory">
@@ -39,20 +43,15 @@ export default async function AgendaPage() {
           <SectionHeader
             eyebrow="Agenda anual"
             title="Planifica tus días desde gratitud, propósito y constancia"
-            description="Guarda tu gratitud diaria, hábitos, acción de abundancia y metas mensuales en tu cuenta."
+            description="Consulta cualquier día guardado desde que empezaste tu agenda, y sigue registrando gratitud, hábitos, acción de abundancia y metas mensuales."
           />
         </div>
       </section>
       <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
         <AnnualAgenda
-          dateKey={dateKey}
+          todayKey={todayKey}
           year={year}
-          initialDailyEntry={{
-            gratitude: dailyEntry?.gratitude ?? "",
-            intention: dailyEntry?.intention ?? "",
-            action: dailyEntry?.action ?? "",
-            habits: parseList(dailyEntry?.habits ?? null)
-          }}
+          dailyEntriesByDate={entriesByDate}
           initialMonthlyGoals={Object.fromEntries(
             monthlyGoals.map((goal) => [goal.month, goal.goal ?? ""])
           )}
