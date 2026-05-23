@@ -34,7 +34,7 @@ export function Footer() {
           <p>© 2026 Yo Soy Abundancia. Todos los derechos reservados.</p>
           <div className="flex gap-4">
             <Link href="/producto" className="hover:text-white">
-              Comprar cuaderno
+              Camino de abundancia
             </Link>
             <Link href="/comunidad" className="hover:text-white">
               Comunidad

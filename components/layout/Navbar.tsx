@@ -6,12 +6,13 @@ import { SocialButtons } from "./SocialButtons";
 
 const navItems = [
   { href: "/", label: "Inicio" },
-  { href: "/producto", label: "Cuaderno" },
-  { href: "/miembros", label: "Miembros" },
+  { href: "/camino-de-abundancia-en-21-dias", label: "Camino de abundancia en 21 días" },
   { href: "/agenda", label: "Agenda" },
+  { href: "/merch", label: "Merch" },
   { href: "/comunidad", label: "Comunidad" },
-  { href: "/login", label: "Login" },
-  { href: "/registro", label: "Registro" }
+  { href: "/miembros", label: "Miembros" },
+  { href: "/login", label: "Iniciar sesión" },
+  { href: "/registro", label: "Registrarse" }
 ];
 
 export function Navbar() {

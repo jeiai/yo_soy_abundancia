@@ -43,7 +43,7 @@ export function Hero() {
                 21 días para abrir caminos de abundancia
               </p>
               <p className="mt-4 leading-7 text-plum/75">
-                Un cuaderno digital guiado con oración, gratitud, reflexión y
+                Un camino digital guiado con oración, gratitud, reflexión y
                 acciones prácticas para acompañarte día a día.
               </p>
               <div className="mt-8 grid gap-4 sm:grid-cols-2">

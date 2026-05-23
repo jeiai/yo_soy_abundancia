@@ -2,7 +2,7 @@ export const products = [
   {
     id: "journal-21-dias",
     name: "21 días para abrir caminos de abundancia",
-    type: "Cuaderno digital",
+    type: "Camino digital",
     price: 222,
     currency: "MXN",
     description:

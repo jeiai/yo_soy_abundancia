@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ProductSales } from "@/components/product/ProductSales";
 
 export const metadata: Metadata = {
-  title: "Cuaderno Digital"
+  title: "Camino de abundancia en 21 días"
 };
 
 type ProductPageProps = {
@@ -13,7 +13,7 @@ type ProductPageProps = {
   };
 };
 
-export default function ProductPage({ searchParams }: ProductPageProps) {
+export default function ProductPage({ searchParams }: ProductPageProps = {}) {
   const checkoutMessage =
     searchParams?.checkout === "error"
       ? searchParams.message ?? "No pudimos iniciar el pago. Revisa la configuración del proveedor."

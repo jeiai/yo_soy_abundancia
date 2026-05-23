@@ -24,7 +24,7 @@ export function ProductCTA() {
             tu transformación con amor.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ButtonLink href="/producto">Ver el cuaderno digital</ButtonLink>
+            <ButtonLink href="/camino-de-abundancia-en-21-dias">Ver el camino digital</ButtonLink>
             <p className="font-semibold text-plum">
               ${journal.price} {journal.currency}
             </p>

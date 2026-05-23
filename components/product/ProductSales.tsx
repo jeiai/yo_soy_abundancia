@@ -55,7 +55,7 @@ export function ProductSales({ checkoutMessage }: ProductSalesProps) {
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-gold">
-              Cuaderno digital
+              Camino digital
             </p>
             <h1 className="font-display text-5xl font-semibold leading-tight text-plum md:text-7xl">
               {journal.name}
@@ -95,7 +95,7 @@ export function ProductSales({ checkoutMessage }: ProductSalesProps) {
       <section className="bg-white px-5 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
           <div>
-            <SectionHeader title="Para quién es este cuaderno" />
+            <SectionHeader title="Para quién es este camino" />
             <div className="mt-8 grid gap-4">
               {audience.map((item) => (
                 <p key={item} className="rounded-2xl bg-ivory p-5 leading-7 text-plum/78">
