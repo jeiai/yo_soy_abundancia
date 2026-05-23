@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { socialLinks } from "@/config/social-links";
 
-const items = [
+export const socialItems = [
   {
     key: "tiktok",
     label: "Síguenos en TikTok",
@@ -53,7 +53,7 @@ type SocialButtonsProps = {
 export function SocialButtons({ compact = false, className = "" }: SocialButtonsProps) {
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-      {items.map(({ key, href, label, short, Icon }) => (
+      {socialItems.map(({ key, href, label, short, Icon }) => (
         <a
           key={key}
           href={href}

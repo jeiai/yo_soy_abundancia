@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { MobileSocialMenu } from "./MobileSocialMenu";
 import { SocialButtons } from "./SocialButtons";
 
 const navItems = [
@@ -16,7 +17,7 @@ const navItems = [
 export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-gold/15 bg-ivory/92 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-3 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-4">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
             <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-plum text-white shadow-soft">
@@ -31,8 +32,9 @@ export function Navbar() {
               </span>
             </span>
           </Link>
+          <MobileSocialMenu />
         </div>
-        <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-plum/80">
+        <nav className="flex flex-wrap items-center gap-1 text-sm font-semibold text-plum/80 lg:gap-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -43,7 +45,7 @@ export function Navbar() {
             </Link>
           ))}
         </nav>
-        <SocialButtons className="max-w-full" />
+        <SocialButtons className="hidden max-w-full lg:flex" />
       </div>
     </header>
   );
