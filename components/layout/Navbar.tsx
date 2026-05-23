@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { MobileSocialMenu } from "./MobileSocialMenu";
 import { SocialButtons } from "./SocialButtons";
@@ -21,9 +20,11 @@ export function Navbar() {
       <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-3 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-4">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-plum text-white shadow-soft">
-              <Sparkles className="h-5 w-5" />
-            </span>
+            <img
+              src="/brand/yo-soy-abundancia-logo.jpeg"
+              alt="Logo de Yo Soy Abundancia"
+              className="h-12 w-12 rounded-full object-cover shadow-soft ring-2 ring-gold/35"
+            />
             <span>
               <span className="block font-display text-2xl font-semibold leading-none text-plum">
                 {siteConfig.name}
