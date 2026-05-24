@@ -14,7 +14,7 @@ export default function CommunityPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeader
             eyebrow="Comunidad"
-            title="No camines sola: únete a Yo Soy Abundancia"
+            title="No camines solo(a): únete a Yo Soy Abundancia"
             description="Conecta con contenido diario, reflexiones, videos, oraciones, comunidad y formas de apoyar este proyecto para que llegue a más personas."
           />
           <SocialButtons className="mt-10" />
