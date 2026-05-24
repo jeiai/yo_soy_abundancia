@@ -7,17 +7,21 @@ import type { SocialVideo } from "@/data/social-videos";
 type SocialVideoCarouselProps = {
   videos: SocialVideo[];
   compact?: boolean;
+  startAtToday?: boolean;
 };
 
 export function SocialVideoCarousel({
   videos,
-  compact = false
+  compact = false,
+  startAtToday = true
 }: SocialVideoCarouselProps) {
   const visibleVideos = useMemo(
     () => videos.filter((video) => video.visible).sort((a, b) => a.order - b.order),
     [videos]
   );
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(() =>
+    startAtToday ? getTodayVideoIndex(videos) : 0
+  );
 
   if (visibleVideos.length === 0) {
     return (
@@ -155,4 +159,17 @@ export function SocialVideoCarousel({
       </div>
     </section>
   );
+}
+
+function getTodayVideoIndex(videos: SocialVideo[]) {
+  const visibleVideos = videos
+    .filter((video) => video.visible)
+    .sort((a, b) => a.order - b.order);
+
+  if (visibleVideos.length === 0) {
+    return 0;
+  }
+
+  const dayIndex = new Date().getDay();
+  return Math.min(dayIndex, visibleVideos.length - 1);
 }
