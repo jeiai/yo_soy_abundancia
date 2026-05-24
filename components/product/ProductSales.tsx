@@ -1,4 +1,5 @@
 import { CheckCircle2, Heart, Sparkles, Users } from "lucide-react";
+import { AbundanceWall } from "@/components/product/AbundanceWall";
 import { PaymentButtons } from "@/components/product/PaymentButtons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { products } from "@/config/products";
@@ -91,6 +92,8 @@ export function ProductSales({ checkoutMessage }: ProductSalesProps) {
           </div>
         </div>
       </section>
+
+      <AbundanceWall />
 
       <section className="bg-white px-5 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
