@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { SocialVideoCarousel } from "@/components/video/SocialVideoCarousel";
+import { getVisibleSocialVideos } from "@/data/social-videos";
 
 const meditationHref = "/meditacion-del-dia";
 const caminoHref = "/camino-de-abundancia-en-21-dias";
@@ -38,8 +40,11 @@ const toneClass = {
 };
 
 export default function HomePage() {
+  const socialVideos = getVisibleSocialVideos();
+
   return (
-    <>
+    <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_23rem] lg:items-start">
+      <div className="min-w-0">
       <section className="soft-band px-5 py-16 lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_0.9fr]">
           <div>
@@ -226,7 +231,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </>
+      </div>
+      <aside className="hidden border-l border-gold/15 bg-ivory/70 px-5 py-8 lg:sticky lg:top-28 lg:block lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+        <SocialVideoCarousel videos={socialVideos} compact />
+      </aside>
+    </div>
   );
 }
 

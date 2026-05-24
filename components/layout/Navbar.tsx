@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { MobileSocialMenu } from "./MobileSocialMenu";
+import { MobileVideoMenu } from "./MobileVideoMenu";
 import { SocialButtons } from "./SocialButtons";
 
 const navItems = [
@@ -19,14 +21,17 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-gold/15 bg-ivory/92 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-3 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-4">
         <div className="flex items-start justify-between gap-4">
-          <Link href="/" className="flex w-fit flex-col items-center gap-2 text-center">
-            <img
+          <Link href="/" className="flex w-fit max-w-[12rem] flex-col items-center gap-2 text-center sm:max-w-none">
+            <Image
               src="/brand/yo-soy-abundancia-logo.jpeg"
               alt="Logo de Yo Soy Abundancia"
+              width={64}
+              height={64}
               className="h-16 w-16 rounded-full object-cover shadow-soft ring-2 ring-gold/35"
+              priority
             />
             <span>
-              <span className="block font-display text-2xl font-semibold leading-none text-plum">
+              <span className="block font-display text-xl font-semibold leading-none text-plum sm:text-2xl">
                 {siteConfig.name}
               </span>
               <span className="mt-1 block text-xs font-medium uppercase tracking-[0.18em] text-gold">
@@ -34,7 +39,10 @@ export function Navbar() {
               </span>
             </span>
           </Link>
-          <MobileSocialMenu />
+          <div className="flex shrink-0 flex-col items-end gap-2 sm:flex-row sm:items-center">
+            <MobileVideoMenu />
+            <MobileSocialMenu />
+          </div>
         </div>
         <nav className="flex flex-wrap items-center gap-1 text-sm font-semibold text-plum/80 lg:gap-2">
           {navItems.map((item) => (
