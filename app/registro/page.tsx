@@ -29,8 +29,8 @@ export default async function RegisterPage() {
           Crear cuenta
         </h1>
         <p className="mt-3 leading-7 text-plum/72">
-          Registra tu acceso para guardar tu camino de abundancia. La primera
-          cuenta creada sera administradora.
+          Registra tu acceso para guardar tu camino de abundancia, participar
+          en la comunidad y volver a tus prácticas cuando lo necesites.
         </p>
         <AuthForm mode="register" />
         <p className="mt-5 text-center text-sm text-plum/70">

@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
     name?: string;
     email?: string;
     password?: string;
-    adminCode?: string;
   };
 
   const name = body.name?.trim();
@@ -43,9 +42,7 @@ export async function POST(request: NextRequest) {
   }
 
   const userCount = await prisma.user.count();
-  const adminCode = process.env.ADMIN_INVITE_CODE;
-  const role =
-    userCount === 0 || (adminCode && body.adminCode === adminCode) ? "admin" : "member";
+  const role = userCount === 0 ? "admin" : "member";
 
   const user = await prisma.user.create({
     data: {

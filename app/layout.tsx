@@ -11,7 +11,11 @@ export const metadata: Metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`
   },
-  description: siteConfig.description
+  description: siteConfig.description,
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-icon.png"
+  }
 };
 
 export default function RootLayout({

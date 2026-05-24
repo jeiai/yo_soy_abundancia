@@ -22,8 +22,7 @@ export function AuthForm({ mode, nextPath = "/miembros" }: AuthFormProps) {
     const payload = {
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
-      password: String(formData.get("password") ?? ""),
-      adminCode: String(formData.get("adminCode") ?? "")
+      password: String(formData.get("password") ?? "")
     };
 
     const response = await fetch(`/api/auth/${mode}`, {
@@ -76,16 +75,6 @@ export function AuthForm({ mode, nextPath = "/miembros" }: AuthFormProps) {
           placeholder="Mínimo 8 caracteres"
         />
       </label>
-      {mode === "register" ? (
-        <label className="grid gap-2">
-          <span className="font-semibold text-plum">Código admin opcional</span>
-          <input
-            name="adminCode"
-            className="min-h-12 rounded-full border border-blush/70 bg-ivory px-5 outline-none focus:border-gold"
-            placeholder="Solo si tienes uno"
-          />
-        </label>
-      ) : null}
       {error ? (
         <p className="rounded-2xl bg-blush/35 p-3 text-sm font-semibold text-rosewood">
           {error}
