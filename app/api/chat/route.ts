@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { chatSystemPrompt } from "@/lib/chat-system-prompt";
+import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
+import { getCurrentUser } from "@/lib/session";
 
 type ChatMessage = {
   role: "assistant" | "user";
@@ -7,6 +9,24 @@ type ChatMessage = {
 };
 
 export async function POST(request: NextRequest) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return NextResponse.json(
+      { message: "Necesitas iniciar sesión para usar el acompañamiento." },
+      { status: 401 }
+    );
+  }
+
+  const canAccessJournal = await hasProductAccess(user, PRODUCT_ACCESS.journal);
+
+  if (!canAccessJournal) {
+    return NextResponse.json(
+      { message: "El acompañamiento requiere una compra aprobada." },
+      { status: 403 }
+    );
+  }
+
   const body = (await request.json()) as { messages?: ChatMessage[] };
   const lastUserMessage =
     body.messages?.filter((message) => message.role === "user").at(-1)?.content ?? "";

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { ChatAssistant } from "@/components/chat/ChatAssistant";
 import { JournalDayCard } from "@/components/journal/JournalDayCard";
+import { LockedProductAccess } from "@/components/product/LockedProductAccess";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { journalDays } from "@/data/journal-days";
+import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 
@@ -13,6 +15,19 @@ export const metadata: Metadata = {
 
 export default async function MembersPage() {
   const user = await requireUser("/miembros");
+  const canAccessJournal = await hasProductAccess(user, PRODUCT_ACCESS.journal);
+
+  if (!canAccessJournal) {
+    return (
+      <LockedProductAccess
+        eyebrow="Acceso privado"
+        title="Este camino se abre después de la compra"
+        description="El recorrido de 21 días, el progreso del journal y el chat de acompañamiento están disponibles para personas con compra aprobada, administradores y usuarios registrados antes del corte especial."
+        productId="journal-21-dias"
+      />
+    );
+  }
+
   const entries = await prisma.journalEntry.findMany({
     where: { userId: user.id }
   });

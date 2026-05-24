@@ -1,6 +1,6 @@
 "use client";
 
-import { CreditCard, Landmark, ShieldCheck } from "lucide-react";
+import { CreditCard, Landmark } from "lucide-react";
 import { CheckoutButton } from "@/components/ui/CheckoutButton";
 
 type PaymentButtonsProps = {
@@ -22,13 +22,9 @@ export function PaymentButtons({ productId }: PaymentButtonsProps) {
           icon={<Landmark className="h-4 w-4" />}
         />
       </div>
-      <a
-        href={`/api/checkout?product=${productId}&provider=demo`}
-        className="inline-flex items-center gap-2 text-sm font-semibold text-plum/65 transition hover:text-plum"
-      >
-        <ShieldCheck className="h-4 w-4 text-gold" />
-        Probar compra demo
-      </a>
+      <p className="text-sm leading-6 text-plum/65">
+        Tu acceso se activará cuando el pago quede aprobado.
+      </p>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 
@@ -9,6 +10,15 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(
       { message: "Necesitas iniciar sesión para guardar la agenda." },
       { status: 401 }
+    );
+  }
+
+  const canAccessAgenda = await hasProductAccess(user, PRODUCT_ACCESS.agenda);
+
+  if (!canAccessAgenda) {
+    return NextResponse.json(
+      { message: "La agenda requiere una compra aprobada." },
+      { status: 403 }
     );
   }
 

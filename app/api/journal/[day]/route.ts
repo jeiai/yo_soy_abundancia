@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 
@@ -15,6 +16,15 @@ export async function PUT(request: NextRequest, context: RouteContext) {
     return NextResponse.json(
       { message: "Necesitas iniciar sesion para guardar tu progreso." },
       { status: 401 }
+    );
+  }
+
+  const canAccessJournal = await hasProductAccess(user, PRODUCT_ACCESS.journal);
+
+  if (!canAccessJournal) {
+    return NextResponse.json(
+      { message: "Este contenido requiere una compra aprobada." },
+      { status: 403 }
     );
   }
 

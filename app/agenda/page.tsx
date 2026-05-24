@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { AnnualAgenda } from "@/components/agenda/AnnualAgenda";
+import { LockedProductAccess } from "@/components/product/LockedProductAccess";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 
@@ -10,6 +12,19 @@ export const metadata: Metadata = {
 
 export default async function AgendaPage() {
   const user = await requireUser("/agenda");
+  const canAccessAgenda = await hasProductAccess(user, PRODUCT_ACCESS.agenda);
+
+  if (!canAccessAgenda) {
+    return (
+      <LockedProductAccess
+        eyebrow="Agenda digital"
+        title="La agenda anual requiere compra activa"
+        description="Este producto digital queda protegido hasta que exista una compra aprobada. Administradores y usuarios registrados antes del corte especial conservan acceso."
+        productId="agenda-anual"
+      />
+    );
+  }
+
   const todayKey = new Date().toISOString().slice(0, 10);
   const year = new Date().getFullYear();
   const [dailyEntries, monthlyGoals] = await Promise.all([

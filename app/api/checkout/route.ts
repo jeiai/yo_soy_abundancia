@@ -4,11 +4,17 @@ import { getCurrentUser } from "@/lib/session";
 
 export async function GET(request: NextRequest) {
   const productId = request.nextUrl.searchParams.get("product") ?? "journal-21-dias";
-  const provider = request.nextUrl.searchParams.get("provider") ?? "demo";
+  const provider = request.nextUrl.searchParams.get("provider") ?? "mercado-pago";
   const publicAppUrl = process.env.NEXT_PUBLIC_APP_URL ?? request.nextUrl.origin;
   const user = await getCurrentUser();
   const normalizedProvider =
-    provider === "stripe" || provider === "mercado-pago" ? provider : "demo";
+    provider === "stripe" || provider === "mercado-pago" ? provider : null;
+
+  if (!normalizedProvider) {
+    return NextResponse.redirect(
+      `${publicAppUrl}/producto?checkout=error&message=${encodeURIComponent("El modo demo está desactivado. Usa Stripe o Mercado Pago.")}`
+    );
+  }
 
   try {
     const checkoutUrl = await createCheckoutUrl({
