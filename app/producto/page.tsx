@@ -13,7 +13,7 @@ type ProductPageProps = {
   };
 };
 
-export default function ProductPage({ searchParams }: ProductPageProps = {}) {
+export default function ProductPage({ searchParams }: ProductPageProps) {
   const checkoutMessage =
     searchParams?.checkout === "error"
       ? searchParams.message ?? "No pudimos iniciar el pago. Revisa la configuración del proveedor."
