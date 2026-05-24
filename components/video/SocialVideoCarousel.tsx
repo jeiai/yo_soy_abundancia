@@ -4,6 +4,16 @@ import { ChevronLeft, ChevronRight, ExternalLink, PlayCircle } from "lucide-reac
 import { useEffect, useMemo, useState } from "react";
 import type { SocialVideo } from "@/data/social-videos";
 
+const weekDays = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado"
+];
+
 type SocialVideoCarouselProps = {
   videos: SocialVideo[];
   compact?: boolean;
@@ -22,10 +32,14 @@ export function SocialVideoCarousel({
   const [activeIndex, setActiveIndex] = useState(() =>
     startAtToday ? getTodayVideoIndex(videos) : 0
   );
+  const [todayLabel, setTodayLabel] = useState(
+    startAtToday ? getMexicoWeekdayLabel() : ""
+  );
 
   useEffect(() => {
     if (startAtToday) {
       setActiveIndex(getTodayVideoIndex(videos));
+      setTodayLabel(getMexicoWeekdayLabel());
     }
   }, [startAtToday, videos]);
 
@@ -79,7 +93,7 @@ export function SocialVideoCarousel({
           </h2>
         </div>
         <span className="rounded-full bg-linen px-3 py-1 text-xs font-semibold text-rosewood">
-          YouTube
+          {todayLabel ? `Hoy: ${todayLabel}` : "YouTube"}
         </span>
       </div>
 
@@ -176,6 +190,21 @@ function getTodayVideoIndex(videos: SocialVideo[]) {
     return 0;
   }
 
-  const dayIndex = new Date().getDay();
+  const dayIndex = getMexicoWeekdayIndex();
   return Math.min(dayIndex, visibleVideos.length - 1);
+}
+
+function getMexicoWeekdayIndex() {
+  const weekday = getMexicoWeekdayLabel();
+  return Math.max(weekDays.indexOf(weekday), 0);
+}
+
+function getMexicoWeekdayLabel() {
+  const weekday = new Intl.DateTimeFormat("es-MX", {
+    weekday: "long",
+    timeZone: "America/Mexico_City"
+  }).format(new Date());
+  const normalized = weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+  return normalized.replace("Miercoles", "Miércoles").replace("Sabado", "Sábado");
 }
