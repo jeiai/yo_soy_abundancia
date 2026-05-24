@@ -23,6 +23,13 @@ export const socialItems = [
     Icon: FaFacebookF
   },
   {
+    key: "facebookGroup",
+    label: "Grupo Yo Soy Abundancia en Facebook",
+    short: "Grupo Facebook",
+    href: socialLinks.facebookGroup,
+    Icon: FaFacebookF
+  },
+  {
     key: "instagram",
     label: "Inspírate en Instagram",
     short: "Instagram",
