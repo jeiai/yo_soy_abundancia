@@ -2,6 +2,7 @@ import type { User } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 const LEGACY_ACCESS_CUTOFF_UTC = new Date("2026-05-24T05:59:59.999Z");
+const MAY_FREE_ACCESS_CUTOFF_UTC = new Date("2026-06-01T05:59:59.999Z");
 const PAID_STATUSES = [
   "active",
   "approved",
@@ -21,11 +22,15 @@ export function hasLegacyAccess(user: Pick<User, "createdAt" | "role">) {
   return user.role === "admin" || user.createdAt <= LEGACY_ACCESS_CUTOFF_UTC;
 }
 
+export function hasMayFreeAccess() {
+  return new Date() <= MAY_FREE_ACCESS_CUTOFF_UTC;
+}
+
 export async function hasProductAccess(
   user: Pick<User, "id" | "createdAt" | "role">,
   productIds: string[]
 ) {
-  if (hasLegacyAccess(user)) {
+  if (hasLegacyAccess(user) || hasMayFreeAccess()) {
     return true;
   }
 

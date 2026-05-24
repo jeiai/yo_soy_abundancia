@@ -66,8 +66,8 @@ export function ProductSales({ checkoutMessage }: ProductSalesProps) {
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               <PaymentButtons productId={journal.id} />
-              <p className="text-2xl font-bold text-plum">
-                ${journal.price} <span className="text-base">{journal.currency}</span>
+              <p className="rounded-full bg-gold/20 px-5 py-3 text-lg font-bold text-plum">
+                Gratis durante mayo
               </p>
             </div>
             {checkoutMessage ? (
