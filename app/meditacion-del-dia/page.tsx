@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { PlayCircle } from "lucide-react";
-import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { SocialVideoCarousel } from "@/components/video/SocialVideoCarousel";
+import { getVisibleSocialVideos } from "@/data/social-videos";
 
 export const metadata: Metadata = {
   title: "Meditación del Día"
 };
 
 export default function MeditationPage() {
+  const socialVideos = getVisibleSocialVideos();
+
   return (
     <div className="bg-ivory">
       <section className="soft-band px-5 py-20 lg:px-8">
@@ -20,18 +23,15 @@ export default function MeditationPage() {
               Acompaña tu práctica diaria
             </h1>
             <p className="mt-6 text-xl leading-9 text-plum/75">
-              Este espacio está preparado para la transmisión en vivo o la
-              repetición más reciente de YouTube.
+              Este espacio reúne siete meditaciones en YouTube para acompañar
+              tu práctica de domingo a sábado.
             </p>
             <ButtonLink href="/comunidad" className="mt-8">
               Conocer la comunidad
               <PlayCircle className="h-4 w-4" />
             </ButtonLink>
           </div>
-          <YouTubeEmbed
-            videoId="jfKfPfyJRdk"
-            title="Meditación del Día de Yo Soy Abundancia"
-          />
+          <SocialVideoCarousel videos={socialVideos} />
         </div>
       </section>
     </div>

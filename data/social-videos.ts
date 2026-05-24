@@ -68,54 +68,41 @@ export const socialVideos: SocialVideo[] = [
     embedEnabled: true
   },
   {
-    id: "jueves-4rch-wuwvmik",
+    id: "jueves-dqnzcam9cbg",
     platform: "youtube",
-    title: "Jueves: Repetición para profundizar",
+    title: "Jueves: Cierre con intención",
     description:
-      "Vuelve a esta meditación para reforzar la intención de abundancia en tu semana.",
-    url: "https://youtu.be/4rcHWUwvMik?si=zs0NMW6nvXuGl3Wn",
-    videoId: "4rcHWUwvMik",
-    thumbnail: youtubeThumbnail("4rcHWUwvMik"),
+      "Acompaña tu práctica con claridad, merecimiento y una intención amorosa.",
+    url: "https://youtu.be/DqnzCaM9CBg?si=-6gqIiR5i3aW4eEf",
+    videoId: "DqnzCaM9CBg",
+    thumbnail: youtubeThumbnail("DqnzCaM9CBg"),
     order: 5,
     visible: true,
     embedEnabled: true
   },
   {
-    id: "viernes-dqnzcam9cbg",
+    id: "viernes-r9qcynruij8",
     platform: "youtube",
-    title: "Viernes: Cierre con intención",
+    title: "Viernes: Descanso y expansión",
     description:
-      "Acompaña el cierre de la semana con una práctica de claridad y merecimiento.",
-    url: "https://youtu.be/DqnzCaM9CBg?si=-6gqIiR5i3aW4eEf",
-    videoId: "DqnzCaM9CBg",
-    thumbnail: youtubeThumbnail("DqnzCaM9CBg"),
+      "Integra la semana desde paz, apertura y gratitud.",
+    url: "https://youtu.be/R9qCyNruIj8?si=8fPFJuSmY_t-xiPc",
+    videoId: "R9qCyNruIj8",
+    thumbnail: youtubeThumbnail("R9qCyNruIj8"),
     order: 6,
     visible: true,
     embedEnabled: true
   },
   {
-    id: "sabado-r9qcynruij8",
+    id: "sabado-i6j39yhgvww",
     platform: "youtube",
-    title: "Sábado: Descanso y expansión",
+    title: "Sábado: Camino de abundancia",
     description:
-      "Una meditación para integrar la semana desde paz, apertura y gratitud.",
-    url: "https://youtu.be/R9qCyNruIj8?si=8fPFJuSmY_t-xiPc",
-    videoId: "R9qCyNruIj8",
-    thumbnail: youtubeThumbnail("R9qCyNruIj8"),
-    order: 7,
-    visible: true,
-    embedEnabled: true
-  },
-  {
-    id: "extra-i6j39yhgvww",
-    platform: "youtube",
-    title: "Video extra: Camino de abundancia",
-    description:
-      "Contenido adicional para seguir fortaleciendo tu camino de abundancia.",
+      "Contenido para seguir fortaleciendo tu camino de abundancia.",
     url: "https://youtu.be/i6j39YHGVWw?si=iEjpws6BiicXlDAu",
     videoId: "i6j39YHGVWw",
     thumbnail: youtubeThumbnail("i6j39YHGVWw"),
-    order: 8,
+    order: 7,
     visible: true,
     embedEnabled: true
   }

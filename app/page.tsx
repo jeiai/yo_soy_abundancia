@@ -7,7 +7,6 @@ import {
   Sparkles,
   Users
 } from "lucide-react";
-import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { SocialVideoCarousel } from "@/components/video/SocialVideoCarousel";
 import { getVisibleSocialVideos } from "@/data/social-videos";
@@ -176,27 +175,22 @@ export default function HomePage() {
               Meditación del Día
             </p>
             <h2 className="font-display text-4xl font-semibold leading-tight text-plum md:text-5xl">
-              Acompaña la transmisión en vivo o vuelve a verla cuando la necesites
+              Acompaña tu práctica diaria con una meditación para cada día
             </h2>
             <p className="mt-5 text-lg leading-8 text-plum/75">
               Cada día tendrás un espacio para conectar con la meditación del
-              día, ya sea en vivo o en repetición, para seguir fortaleciendo tu
-              práctica desde donde estés.
+              día y seguir fortaleciendo tu práctica desde donde estés.
             </p>
             <p className="mt-4 text-lg leading-8 text-plum/75">
-              Este acceso puede llevar directamente a la transmisión activa o,
-              cuando no haya transmisión en ese momento, a la repetición más
-              reciente alojada en YouTube.
+              Elige el video que corresponde a tu día o avanza manualmente por
+              la semana para volver a la meditación que necesites.
             </p>
             <ButtonLink href={meditationHref} className="mt-7">
               Ver Meditación del Día
               <PlayCircle className="h-4 w-4" />
             </ButtonLink>
           </div>
-          <YouTubeEmbed
-            videoId="jfKfPfyJRdk"
-            title="Meditación del Día de Yo Soy Abundancia"
-          />
+          <SocialVideoCarousel videos={socialVideos} />
         </div>
       </section>
 
