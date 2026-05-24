@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
 import { prisma } from "@/lib/prisma";
+import { rateLimit } from "@/lib/rate-limit";
 import { getCurrentUser } from "@/lib/session";
 
 export async function PUT(request: NextRequest) {
+  const limited = rateLimit(request, {
+    namespace: "agenda:monthly-goals",
+    limit: 30,
+    windowMs: 60 * 60 * 1000
+  });
+
+  if (limited) {
+    return limited;
+  }
+
   const user = await getCurrentUser();
 
   if (!user) {

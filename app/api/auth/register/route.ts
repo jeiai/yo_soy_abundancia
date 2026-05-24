@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/password";
+import { rateLimit } from "@/lib/rate-limit";
 import { AUTH_COOKIE, createSession } from "@/lib/session";
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request, {
+    namespace: "auth:register",
+    limit: 5,
+    windowMs: 60 * 60 * 1000
+  });
+
+  if (limited) {
+    return limited;
+  }
+
   const body = (await request.json()) as {
     name?: string;
     email?: string;

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
 import { prisma } from "@/lib/prisma";
+import { rateLimit } from "@/lib/rate-limit";
 import { getCurrentUser } from "@/lib/session";
 
 type RouteContext = {
@@ -10,6 +11,16 @@ type RouteContext = {
 };
 
 export async function PUT(request: NextRequest, context: RouteContext) {
+  const limited = rateLimit(request, {
+    namespace: "journal",
+    limit: 80,
+    windowMs: 60 * 60 * 1000
+  });
+
+  if (limited) {
+    return limited;
+  }
+
   const user = await getCurrentUser();
 
   if (!user) {

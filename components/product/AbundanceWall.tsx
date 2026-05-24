@@ -18,6 +18,7 @@ export function AbundanceWall() {
   const [signatures, setSignatures] = useState<Signature[]>([]);
   const [displayName, setDisplayName] = useState("");
   const [intention, setIntention] = useState("");
+  const [website, setWebsite] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [status, setStatus] = useState<"idle" | "loading" | "signed" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -45,6 +46,7 @@ export function AbundanceWall() {
       },
       body: JSON.stringify({
         displayName,
+        website,
         intention,
         isAnonymous
       })
@@ -93,6 +95,15 @@ export function AbundanceWall() {
                 maxLength={70}
                 className="min-h-12 rounded-2xl border border-gold/25 bg-ivory px-4 text-base font-normal outline-none transition focus:border-gold disabled:opacity-55"
                 placeholder="Ej. María, Josué, Alma abundante"
+              />
+            </label>
+            <label className="hidden">
+              Sitio web
+              <input
+                value={website}
+                onChange={(event) => setWebsite(event.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
               />
             </label>
             <label className="flex items-center gap-3 rounded-2xl bg-ivory px-4 py-3 text-sm font-semibold text-plum">

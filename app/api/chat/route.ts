@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { chatSystemPrompt } from "@/lib/chat-system-prompt";
 import { PRODUCT_ACCESS, hasProductAccess } from "@/lib/product-access";
+import { rateLimit } from "@/lib/rate-limit";
 import { getCurrentUser } from "@/lib/session";
 
 type ChatMessage = {
@@ -9,6 +10,16 @@ type ChatMessage = {
 };
 
 export async function POST(request: NextRequest) {
+  const limited = rateLimit(request, {
+    namespace: "chat",
+    limit: 30,
+    windowMs: 60 * 60 * 1000
+  });
+
+  if (limited) {
+    return limited;
+  }
+
   const user = await getCurrentUser();
 
   if (!user) {
