@@ -71,22 +71,8 @@ export default function HomePage() {
               </ButtonLink>
             </div>
           </div>
-          <div className="rounded-[2rem] border border-gold/20 bg-white/82 p-5 shadow-soft">
-            <div className="rounded-[1.5rem] bg-linen p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-gold">
-                Meditación del Día
-              </p>
-              <h2 className="mt-3 font-display text-4xl font-semibold text-plum">
-                Un momento para volver a ti
-              </h2>
-              <p className="mt-4 leading-7 text-plum/72">
-                Acompaña la transmisión en vivo o vuelve a la repetición más
-                reciente cuando necesites calma, enfoque y presencia.
-              </p>
-              <ButtonLink href="#meditacion-del-dia" className="mt-6">
-                Ver Meditación del Día
-              </ButtonLink>
-            </div>
+          <div className="rounded-[2rem] border border-gold/20 bg-white/82 p-4 shadow-soft">
+            <SocialVideoCarousel videos={socialVideos} compact />
           </div>
         </div>
       </section>
