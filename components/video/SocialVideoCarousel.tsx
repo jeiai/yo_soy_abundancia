@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight, ExternalLink, PlayCircle } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { SocialVideo } from "@/data/social-videos";
 
 type SocialVideoCarouselProps = {
@@ -22,6 +22,12 @@ export function SocialVideoCarousel({
   const [activeIndex, setActiveIndex] = useState(() =>
     startAtToday ? getTodayVideoIndex(videos) : 0
   );
+
+  useEffect(() => {
+    if (startAtToday) {
+      setActiveIndex(getTodayVideoIndex(videos));
+    }
+  }, [startAtToday, videos]);
 
   if (visibleVideos.length === 0) {
     return (
