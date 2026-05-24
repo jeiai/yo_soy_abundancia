@@ -139,7 +139,7 @@ export function SocialVideoCarousel({
             Videos
           </p>
           <h2 className="mt-2 font-display text-2xl font-semibold leading-tight text-plum">
-            Insp\u00edrate con Yo Soy Abundancia
+            Inspírate con Yo Soy Abundancia
           </h2>
         </div>
         <span className="rounded-full bg-linen px-3 py-1 text-xs font-semibold text-rosewood">
