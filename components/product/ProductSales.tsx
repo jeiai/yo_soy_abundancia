@@ -14,7 +14,7 @@ const includes = [
 ];
 
 const audience = [
-  "Mujeres que desean reconectar con su fe y su paz interior.",
+  "Personas que desean reconectar con su fe y su paz interior.",
   "Personas que sienten bloqueos de escasez, culpa o miedo a recibir.",
   "Quienes quieren una práctica espiritual sencilla y constante.",
   "Quienes buscan crecer emocionalmente sin perder acción práctica."
