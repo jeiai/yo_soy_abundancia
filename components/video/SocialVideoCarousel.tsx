@@ -29,19 +29,17 @@ export function SocialVideoCarousel({
     () => videos.filter((video) => video.visible).sort((a, b) => a.order - b.order),
     [videos]
   );
-  const [activeIndex, setActiveIndex] = useState(() =>
-    startAtToday ? getTodayVideoIndex(videos) : 0
-  );
-  const [todayLabel, setTodayLabel] = useState(
-    startAtToday ? getMexicoWeekdayLabel() : ""
-  );
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [todayLabel, setTodayLabel] = useState("");
 
   useEffect(() => {
     if (startAtToday) {
-      setActiveIndex(getTodayVideoIndex(videos));
-      setTodayLabel(getMexicoWeekdayLabel());
+      const dayIndex = getBrowserWeekdayIndex();
+
+      setActiveIndex(Math.min(dayIndex, Math.max(visibleVideos.length - 1, 0)));
+      setTodayLabel(weekDays[dayIndex] ?? "");
     }
-  }, [startAtToday, videos]);
+  }, [startAtToday, visibleVideos.length]);
 
   if (visibleVideos.length === 0) {
     return (
@@ -181,30 +179,6 @@ export function SocialVideoCarousel({
   );
 }
 
-function getTodayVideoIndex(videos: SocialVideo[]) {
-  const visibleVideos = videos
-    .filter((video) => video.visible)
-    .sort((a, b) => a.order - b.order);
-
-  if (visibleVideos.length === 0) {
-    return 0;
-  }
-
-  const dayIndex = getMexicoWeekdayIndex();
-  return Math.min(dayIndex, visibleVideos.length - 1);
-}
-
-function getMexicoWeekdayIndex() {
-  const weekday = getMexicoWeekdayLabel();
-  return Math.max(weekDays.indexOf(weekday), 0);
-}
-
-function getMexicoWeekdayLabel() {
-  const weekday = new Intl.DateTimeFormat("es-MX", {
-    weekday: "long",
-    timeZone: "America/Mexico_City"
-  }).format(new Date());
-  const normalized = weekday.charAt(0).toUpperCase() + weekday.slice(1);
-
-  return normalized.replace("Miercoles", "Miércoles").replace("Sabado", "Sábado");
+function getBrowserWeekdayIndex() {
+  return new Date().getDay();
 }
