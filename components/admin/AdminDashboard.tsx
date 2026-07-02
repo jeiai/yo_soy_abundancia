@@ -1,4 +1,5 @@
-import { BookOpen, CreditCard, Database, Users } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BookOpen, CreditCard, Database, Users } from "lucide-react";
 import { products } from "@/config/products";
 import { journalDays } from "@/data/journal-days";
 
@@ -22,9 +23,18 @@ export function AdminDashboard() {
         ))}
       </div>
       <section className="rounded-3xl bg-white p-6 shadow-sm">
-        <h2 className="font-display text-3xl font-semibold text-plum">
-          Productos monetizables
-        </h2>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="font-display text-3xl font-semibold text-plum">
+            Productos monetizables
+          </h2>
+          <Link
+            href="/admin/usuarios"
+            className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-plum px-5 text-sm font-semibold text-white transition hover:bg-rosewood"
+          >
+            Ver AdminUsuarios
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
             <thead>
